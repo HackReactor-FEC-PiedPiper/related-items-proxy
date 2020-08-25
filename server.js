@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const app = express();
 
@@ -11,3 +12,11 @@ app.listen(PORT, () => {
 });
 
 app.use(express.static('client'));
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/index.html'), (err) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
+});
